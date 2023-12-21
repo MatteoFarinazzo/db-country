@@ -1,0 +1,47 @@
+-- Selezionare tutte le nazioni il cui nome inizia con la P e la cui area è maggiore di 1000 kmq
+
+SELECT *
+FROM countries c 
+WHERE c.name LIKE 'P%' AND c.area > 1000;
+
+-- Contare quante nazioni sono presenti nel database
+
+SELECT count(*) as number_countries
+FROM countries c;
+
+-- Selezionare il nome delle regioni del continente europeo, in ordine alfabetico
+
+SELECT DISTINCT  r.name
+FROM continents c 
+JOIN regions r ON c.continent_id = r.continent_id
+WHERE c.name = 'Europe'
+ORDER BY r.name ASC;
+
+ -- Contare quante regioni sono presenti nel continente Africa
+
+SELECT count(*) many_regions_africa
+FROM continents c 
+JOIN regions r ON c.continent_id = r.continent_id 
+WHERE c.name = 'Africa';
+
+-- Selezionare quali nazioni non hanno un national day
+
+SELECT c.*
+FROM countries c 
+WHERE c.national_day IS NULL;
+
+-- Per ogni nazione, in ordine alfabetico, selezionare il nome, la regione e il continente
+
+SELECT c.name, r.name, c2.name
+FROM countries c 
+JOIN regions r ON c.region_id = r.region_id
+JOIN continents c2 ON r.continent_id = c2.continent_id 
+ORDER BY c.name ASC;
+
+-- Selezionare le lingue ufficiali dell’Albania
+
+SELECT l.language
+FROM countries c 
+JOIN country_languages cl ON c.country_id = cl.country_id
+JOIN languages l ON cl.language_id = l.language_id 
+WHERE c.name = 'Albania'
